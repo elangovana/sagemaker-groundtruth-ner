@@ -4,7 +4,7 @@ This has 3 components
 1. The HTML template that the workers will use to work on the task
 1. Lambda functions for pre and post processing rules.
 
-**Note** This template currently only support one type of entity
+**Note** This template currently only supports one type of entity
 
 ![Preview](docs/preview.png)
 
@@ -30,5 +30,5 @@ pytests
 ```
 
 ## Known issues
-1. Does not Multi-word enities.
+1. Does not support Multi-word entities on the ui.
 2. Entity index in the text is currently the token index, but should be the position on the character..

@@ -17,7 +17,7 @@ class TestPostProcessNERAnnotation(TestCase):
                  "payload": {
                      "s3Uri": "s3://mybucket/output/EntityRecognition-ProtienName/annotations/consolidated-annotation/consolidation-request/iteration-1/2018-12-20_11:42:13.json"},
                  "labelAttributeName": "EntityRecognition-ProtienName",
-                 "roleArn": "arn:aws:iam::324346001917:role/Sagemaker",
+                 "roleArn": "arn:aws:iam::555:role/Sagemaker",
                  "outputConfig": "s3://mybucket/output/EntityRecognition-ProtienName/annotations"}
 
         payload = [
