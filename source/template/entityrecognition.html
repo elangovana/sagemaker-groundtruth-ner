@@ -1,0 +1,77 @@
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<crowd-form name="myform" id="myform">
+    <crowd-tabs>
+        <crowd-tab header="Task">
+
+
+            <div>
+                <p>EntityName: Protein Name</p>
+            </div>
+            <div>
+                {% for token in task.input.tokens %}
+                <span class="fragment" data-cw-id="{{ token.id }}"  data-cw-selected="0">{{ token.value }}</span>
+                {% endfor %}
+
+                <input type="hidden" name="annotations" id="annotations" />
+            </div>
+            <div>
+                Recognise the entities in this task
+            </div>
+
+
+
+
+
+        </crowd-tab>
+        <crowd-tab header="Instructions">
+            <div>
+                <crowd-instructions>
+                    <detailed-instructions>
+                        <p>Read the task carefully and annotate the protein names in the text. You can select the word by clicking on the word </p>
+
+                    </detailed-instructions>
+                    <short-summary>
+                        Identify the protein names in this text?
+                    </short-summary>
+                </crowd-instructions>
+            </div>
+
+
+        </crowd-tab>
+    </crowd-tabs>
+</crowd-form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".fragment").click(function () {
+        var text = $(this).text();
+        var id = $(this).attr("data-cw-id")
+        if  ( $(this).attr("data-cw-selected") == "0" ){
+            var annotation_val = $("#annotations").val()
+            if (annotation_val == '' || annotation_val == null) {
+                annotation = {}
+            } else {
+                annotation = JSON.parse(annotation_val)
+            }
+            annotation[id]=text
+            $("#annotations").val(JSON.stringify(annotation));
+            $(this).attr("data-cw-selected",  "1")
+            $(this).attr("style",  "background-color:yellow;")
+            console.log($("#annotations").val())
+        }
+        else{
+
+            var annotation_val = $("#annotations").val()
+            if (annotation_val == '' || annotation_val == null) {
+                annotation = []
+            } else {
+                annotation = JSON.parse(annotation_val)
+            }
+            annotation[id] = undefined
+            $("#annotations").val(JSON.stringify(annotation));
+            $(this).attr("data-cw-selected",  "0")
+            $(this).attr("style",  "")
+            console.log($("#annotations").val())
+        }
+    });
+
+</script>
