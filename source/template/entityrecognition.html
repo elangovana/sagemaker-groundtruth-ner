@@ -12,7 +12,7 @@
                 <span class="fragment" data-cw-id="{{ token.id }}"  data-cw-selected="0">{{ token.value }}</span>
                 {% endfor %}
 
-                <input type="hidden" name="annotations" id="annotations" />
+                <input type="hidden" name="entities" id="entities" value="{}" />
             </div>
             <div>
                 Recognise the entities in this task
@@ -46,31 +46,31 @@
         var text = $(this).text();
         var id = $(this).attr("data-cw-id")
         if  ( $(this).attr("data-cw-selected") == "0" ){
-            var annotation_val = $("#annotations").val()
+            var annotation_val = $("#entities").val()
             if (annotation_val == '' || annotation_val == null) {
                 annotation = {}
             } else {
                 annotation = JSON.parse(annotation_val)
             }
             annotation[id]=text
-            $("#annotations").val(JSON.stringify(annotation));
+            $("#entities").val(JSON.stringify(annotation));
             $(this).attr("data-cw-selected",  "1")
             $(this).attr("style",  "background-color:yellow;")
-            console.log($("#annotations").val())
+            console.log($("#entities").val())
         }
         else{
 
-            var annotation_val = $("#annotations").val()
+            var annotation_val = $("#entities").val()
             if (annotation_val == '' || annotation_val == null) {
                 annotation = []
             } else {
                 annotation = JSON.parse(annotation_val)
             }
             annotation[id] = undefined
-            $("#annotations").val(JSON.stringify(annotation));
+            $("#entities").val(JSON.stringify(annotation));
             $(this).attr("data-cw-selected",  "0")
             $(this).attr("style",  "")
-            console.log($("#annotations").val())
+            console.log($("#entities").val())
         }
     });
 
