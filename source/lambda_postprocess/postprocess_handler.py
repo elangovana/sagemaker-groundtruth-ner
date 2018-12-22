@@ -5,11 +5,12 @@ import math
 import logging
 
 
-def postprocess_handler(event, context):
+def lambda_handler(event, context):
     logger = logging.getLogger(__name__)
-    logger.debug("{}".format(context))
+    logger.setLevel(logging.DEBUG)
+    logger.debug("{}".format(event))
 
-    result = PostProcessNERAnnotation().post_process(event)
+    result = PostProcessNERAnnotation().process(event)
 
     return result
 
@@ -32,7 +33,7 @@ class PostProcessNERAnnotation:
     def s3_client(self, value):
         self.__s3_client__ = value
 
-    def post_process(self, event):
+    def process(self, event):
 
         payload_uri = event["payload"]["s3Uri"]
         labelAttributeName = event["labelAttributeName"]
@@ -58,8 +59,9 @@ class PostProcessNERAnnotation:
             for a in r["annotations"]:
                 entities_annotations = json.loads(a["annotationData"]["content"])
 
-                for start_index, token in json.loads(entities_annotations["entities"]).items():
-
+                for key, value in json.loads(entities_annotations["entities"]).items():
+                    start_index = value['startindex']
+                    token = value['tokentext']
                     length = len(token)
                     hit_key = "{}#{}".format(start_index, length)
                     if hit_key not in annotations_hit: annotations_hit[hit_key] = 0

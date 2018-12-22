@@ -8,16 +8,24 @@ This has 3 components
 
 ![Preview](docs/preview.png)
 
+
+## Known issues
+1. Does not support multi-word entities on the user interface. 
+
+
 ## Setup
-1. Create a lambda function EntityAnnotationPreProcessing with runtime python 3.6 using the code [source/lambda_preprocess/preprocess_handler.py](source/lambda_preprocess/preprocess_handler.py)
-1. Create a lambda function EntityAnnotationPostProcessing with runtime python 3.6 using the code [source/lambda_postprocess/postprocess_handler.py](source/lambda_postprocess/postprocess_handler.py)
+1. Create a lambda function SageMaker-EntityAnnotationPreProcessing with runtime python 3.6 using the code [source/lambda_preprocess/preprocess_handler.py](source/lambda_preprocess/preprocess_handler.py). 
+1. Create a lambda function SageMaker-EntityAnnotationPostProcessing with runtime python 3.6 using the code [source/lambda_postprocess/postprocess_handler.py](source/lambda_postprocess/postprocess_handler.py). Make sure this has access to read the s3 bucket containing the results from Sagemaker groundtruth job you are about to create
 1. Configure SageMaker Ground Truth as follows:
+   
+  
    - Choose custom template in Sagemaker Ground Truth
    - In the custom template section, copy paste the html from [source/template/entityrecognition.html](source/template/entityrecognition.html)
-   - In the Pre-labelling task lambda function, select EntityAnnotationPreProcessing
-   - In the Post-labelling task lambda function, select EntityAnnotationPostProcessing
+   - In the Pre-labelling task lambda function, select Sagemaker-EntityAnnotationPreProcessing
+   - In the Post-labelling task lambda function, select Sagemaker-EntityAnnotationPostProcessing
+   -    **Note** Using the naming convention SageMaker-* for your lambda functions automatically gives access to Sagemaker using the standard template. Otherwise you would have to use create an IAM policy and provide access to Sagemaker to execute the lambda function
 
-
+   - There is a sample text file [tests/sample_input_data_pubtator.txt](tests/sample_input_data_pubtator.txt) included to test the set up.
 ![setup](docs/setup_custom_template.png)
 
  
@@ -28,7 +36,3 @@ This has 3 components
 export PYTHONPATH=./source
 pytests
 ```
-
-## Known issues
-1. Does not support Multi-word entities on the ui.
-2. Entity index in the text is currently the token index, but should be the position on the character..
