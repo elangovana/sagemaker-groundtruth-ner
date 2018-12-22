@@ -14,7 +14,7 @@ This has 3 components
 
 
 ## Setup
-1. If you want try this sample, here is a sample text file [tests/sample_input_data_pubtator.txt](tests/sample_input_data_pubtator.txt) to evaluate the workflow.
+1. If you want try this sample but dont have the data to test this, you cam use this a sample file [tests/sample_input_data_pubtator.txt](tests/sample_input_data_pubtator.txt) as input data to evaluate the workflow.
 
 1. Create pre and post processing lambda functions
     - **Note** Using the naming convention SageMaker-* for your lambda functions automatically gives access to Sagemaker using the standard template. Otherwise you would have to use create an IAM policy and provide access to Sagemaker to execute the lambda function
