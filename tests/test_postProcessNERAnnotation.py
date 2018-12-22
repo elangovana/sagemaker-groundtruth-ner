@@ -1,5 +1,5 @@
 import json
-from io import StringIO, BytesIO
+from io import BytesIO
 from unittest import TestCase
 from unittest.mock import Mock
 

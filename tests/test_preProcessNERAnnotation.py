@@ -1,9 +1,5 @@
-import json
-from io import StringIO, BytesIO
 from unittest import TestCase
-from unittest.mock import Mock
 
-from postprocess_handler import PostProcessNERAnnotation
 from preprocess_handler import PreProcessNERAnnotation
 
 
