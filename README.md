@@ -1,4 +1,4 @@
-# SageMaker GroundTruth  - Named entity Recognition
+# SageMaker GroundTruth  - Named Entity Recognition
 This is a sample template for SageMaker named entity recognition ground truth solution. 
 This has 3 components
 1. The HTML template that the workers will use to work on the task
