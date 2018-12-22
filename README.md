@@ -14,18 +14,25 @@ This has 3 components
 
 
 ## Setup
-1. Create a lambda function SageMaker-EntityAnnotationPreProcessing with runtime python 3.6 using the code [source/lambda_preprocess/preprocess_handler.py](source/lambda_preprocess/preprocess_handler.py). 
-1. Create a lambda function SageMaker-EntityAnnotationPostProcessing with runtime python 3.6 using the code [source/lambda_postprocess/postprocess_handler.py](source/lambda_postprocess/postprocess_handler.py). Make sure this has access to read the s3 bucket containing the results from Sagemaker groundtruth job you are about to create
-1. Configure SageMaker Ground Truth as follows:
+1. If you want try this sample, here is a sample text file [tests/sample_input_data_pubtator.txt](tests/sample_input_data_pubtator.txt) to evaluate the workflow.
+
+1. Create pre and post processing lambda functions
+    - **Note** Using the naming convention SageMaker-* for your lambda functions automatically gives access to Sagemaker using the standard template. Otherwise you would have to use create an IAM policy and provide access to Sagemaker to execute the lambda function
    
+    - Create a lambda function SageMaker-EntityAnnotationPreProcessing with runtime python 3.6 using the code [source/lambda_preprocess/preprocess_handler.py](source/lambda_preprocess/preprocess_handler.py). 
+   
+    - Create a lambda function SageMaker-EntityAnnotationPostProcessing with runtime python 3.6 using the code [source/lambda_postprocess/postprocess_handler.py](source/lambda_postprocess/postprocess_handler.py). Make sure this has access to read the s3 bucket containing the results from Sagemaker groundtruth job you are about to create
+
+1. Configure SageMaker Ground Truth as follows:
   
    - Choose custom template in Sagemaker Ground Truth
+  
    - In the custom template section, copy paste the html from [source/template/entityrecognition.html](source/template/entityrecognition.html)
+   
    - In the Pre-labelling task lambda function, select Sagemaker-EntityAnnotationPreProcessing
+   
    - In the Post-labelling task lambda function, select Sagemaker-EntityAnnotationPostProcessing
-   -    **Note** Using the naming convention SageMaker-* for your lambda functions automatically gives access to Sagemaker using the standard template. Otherwise you would have to use create an IAM policy and provide access to Sagemaker to execute the lambda function
 
-   - There is a sample text file [tests/sample_input_data_pubtator.txt](tests/sample_input_data_pubtator.txt) included to test the set up.
 ![setup](docs/setup_custom_template.png)
 
  
